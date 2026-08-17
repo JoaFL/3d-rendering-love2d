@@ -6,11 +6,11 @@ local MatrixMath = require("MatrixMath")
 
 local SCREEN_WIDTH = love.graphics.getWidth()
 local SCREEN_HEIGHT = love.graphics.getHeight()
-local F_NEAR = 0.1
-local F_FAR = 1000.0
-local F_VOV = 90.0
-local F_ASPECT_RATIO = SCREEN_HEIGHT / SCREEN_WIDTH
-local F_FOV_RAD = 1.0 / math.tan(F_VOV * 0.5 / 180.0 * math.pi)
+local NEAR = 0.1
+local FAR = 1000.0
+local FOV = 90.0
+local ASPECT_RATIO = SCREEN_HEIGHT / SCREEN_WIDTH
+local FOV_RAD = 1.0 / math.tan(FOV * 0.5 / 180.0 * math.pi)
 
 local meshCube = Mesh.new({
 	-- SOUTH
@@ -39,10 +39,10 @@ local meshCube = Mesh.new({
 })
 
 local matProj = Mat4x4.new()
-matProj.m[1][1] = F_ASPECT_RATIO * F_FOV_RAD
-matProj.m[2][2] = F_FOV_RAD
-matProj.m[3][3] = F_FAR / (F_FAR - F_NEAR)
-matProj.m[4][3] = (-F_FAR * F_NEAR) / (F_FAR - F_NEAR)
+matProj.m[1][1] = ASPECT_RATIO * FOV_RAD
+matProj.m[2][2] = FOV_RAD
+matProj.m[3][3] = FAR / (FAR - NEAR)
+matProj.m[4][3] = (-FAR * NEAR) / (FAR - NEAR)
 matProj.m[3][4] = 1.0
 matProj.m[4][4] = 0.0
 
@@ -98,8 +98,8 @@ function love.draw()
 		)
 
 		for _, v in ipairs(triProjected.points) do
-			v.x = (v.x + 1) * (0.5 * SCREEN_WIDTH)
-			v.y = (v.y + 1) * (0.5 * SCREEN_HEIGHT)
+			v.x = (v.x + 1) * 0.5 * SCREEN_WIDTH
+			v.y = (v.y + 1) * 0.5 * SCREEN_HEIGHT
 		end
 
 		love.graphics.polygon(
@@ -111,8 +111,8 @@ function love.draw()
 			triProjected.points[3].x,
 			triProjected.points[3].y
 		)
-
-		local fps = love.timer.getFPS()
-		love.graphics.print("FPS: " .. fps, 0, 0)
 	end
+
+	local fps = love.timer.getFPS()
+	love.graphics.print("FPS: " .. fps, 0, 0)
 end
