@@ -53,7 +53,7 @@ local fTheta = 0
 function love.load() end
 
 function love.update(dt)
-	fTheta = fTheta + 1 * dt
+	fTheta = fTheta + 2 * dt
 
 	matRotZ.m[1][1] = math.cos(fTheta)
 	matRotZ.m[1][2] = math.sin(fTheta)
@@ -112,6 +112,7 @@ function love.draw()
 			triProjected.points[3].y
 		)
 
-		love.graphics.circle("fill", triProjected.points[1].x, triProjected.points[1].y, 5)
+		local fps = love.timer.getFPS()
+		love.graphics.print("FPS: " .. fps, 0, 0)
 	end
 end
