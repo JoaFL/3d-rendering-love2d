@@ -7,10 +7,10 @@ local MatrixMath = require("MatrixMath")
 local SCREEN_WIDTH = love.graphics.getWidth()
 local SCREEN_HEIGHT = love.graphics.getHeight()
 local NEAR = 0.1
-local FAR = 1000.0
-local FOV = 90.0
+local FAR = 1000
+local FOV = 90
 local ASPECT_RATIO = SCREEN_HEIGHT / SCREEN_WIDTH
-local FOV_RAD = 1.0 / math.tan(FOV * 0.5 / 180.0 * math.pi)
+local FOV_RAD = 1 / math.tan(FOV * 0.5 / 180 * math.pi)
 
 local meshCube = Mesh.new({
 	-- SOUTH
@@ -43,8 +43,8 @@ matProj.m[1][1] = ASPECT_RATIO * FOV_RAD
 matProj.m[2][2] = FOV_RAD
 matProj.m[3][3] = FAR / (FAR - NEAR)
 matProj.m[4][3] = (-FAR * NEAR) / (FAR - NEAR)
-matProj.m[3][4] = 1.0
-matProj.m[4][4] = 0.0
+matProj.m[3][4] = 1
+matProj.m[4][4] = 0
 
 local matRotZ = Mat4x4.new()
 local matRotX = Mat4x4.new()
